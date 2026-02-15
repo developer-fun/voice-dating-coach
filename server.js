@@ -188,15 +188,20 @@ app.post("/api/voice", upload.single("audio"), async (req, res) => {
 
     if (!req.file) return res.status(400).json({ error: "No audio file" });
 
+    // Rename file to include extension (Whisper needs it to detect format)
+    const ext = path.extname(req.file.originalname) || '.webm';
+    const newPath = req.file.path + ext;
+    fs.renameSync(req.file.path, newPath);
+
     // Transcribe with Whisper
     const transcription = await openai.audio.transcriptions.create({
-      file: fs.createReadStream(req.file.path),
+      file: fs.createReadStream(newPath),
       model: "whisper-1",
       response_format: "text"
     });
 
     // Cleanup temp file
-    try { fs.unlinkSync(req.file.path); } catch(e) {}
+    try { fs.unlinkSync(newPath); } catch(e) {}
 
     const userMessage = (typeof transcription === 'string' ? transcription : transcription.text || '').trim();
     if (!userMessage) return res.json({ transcript: "", reply: "I didn't catch that. Could you try again?", audio: null });
@@ -293,3 +298,4 @@ app.listen(PORT, () => {
   └─────────────────────────────────────────────────┘
   `);
 });
+
