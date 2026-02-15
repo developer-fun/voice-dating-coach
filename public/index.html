@@ -398,12 +398,12 @@ async function init() {
   const res = await fetch('/api/scenarios');
   const data = await res.json();
   const grid = document.getElementById('scenarioGrid');
-  grid.innerHTML = data.scenarios.map(s => \`
-    <div class="scenario-card" onclick="startScenario('\${s.key}')">
-      <div class="sc-name">\${s.name}</div>
-      <div class="sc-desc">\${s.description}</div>
+  grid.innerHTML = data.scenarios.map(s => `
+    <div class="scenario-card" onclick="startScenario('${s.key}')">
+      <div class="sc-name">${s.name}</div>
+      <div class="sc-desc">${s.description}</div>
     </div>
-  \`).join('');
+  `).join('');
 }
 
 // ─── Start Session ───────────────────────────────────────────
@@ -540,11 +540,11 @@ function addMessage(role, text, audioBase64) {
   const typing = document.getElementById('typingIndicator');
 
   const div = document.createElement('div');
-  div.className = \`message \${role}\`;
+  div.className = `message ${role}`;
 
   // Parse coach tips
   let html = escapeHtml(text);
-  html = html.replace(/\\[COACH TIP:(.*?)\\]/gs, '<span class="coach-tip">💡 $1</span>');
+  html = html.replace(/\[COACH TIP:(.*?)\]/gs, '<span class="coach-tip">💡 $1</span>');
 
   div.innerHTML = html;
 
@@ -614,3 +614,4 @@ init();
 </script>
 </body>
 </html>
+
