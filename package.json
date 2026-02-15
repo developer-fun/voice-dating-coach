@@ -1,0 +1,20 @@
+{
+  "name": "voice-dating-coach",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Voice AI Dating Coach — practice conversations, get real-time feedback",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "openai": "^4.75.0",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
