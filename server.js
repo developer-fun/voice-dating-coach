@@ -3,7 +3,7 @@ import express from "express";
 import OpenAI from "openai";
 import multer from "multer";
 import fs from "fs";
-import path from "path";
+import path from "path"
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
